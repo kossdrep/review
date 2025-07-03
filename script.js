@@ -1,20 +1,31 @@
 const stars = document.querySelectorAll("#stars span");
-const thankYou = document.getElementById("thankYou");
+let selectedValue = 0;
 
-stars.forEach(star => {
-  star.addEventListener("click", () => {
-    const value = parseInt(star.dataset.value);
-    stars.forEach(s => {
-      s.classList.toggle("selected", parseInt(s.dataset.value) <= value);
+stars.forEach((star, index) => {
+  star.addEventListener("mouseover", () => {
+    stars.forEach((s, i) => {
+      s.classList.toggle("hover", i <= index);
     });
-    thankYou.textContent = "Спасибо за вашу оценку: " + value + " звёзд!";
+  });
+
+  star.addEventListener("mouseout", () => {
+    stars.forEach((s, i) => {
+      s.classList.toggle("hover", false);
+    });
+  });
+
+  star.addEventListener("click", () => {
+    selectedValue = parseInt(star.dataset.value);
+    stars.forEach((s, i) => {
+      s.classList.toggle("selected", i < selectedValue);
+    });
 
     setTimeout(() => {
-      if (value >= 4) {
-        window.location.href = "https://hotel-website.com";
+      if (selectedValue >= 4) {
+        window.location.href = "https://maps.app.goo.gl/WWB4ZqHCcaKKPsJa8";
       } else {
-        window.location.href = "mailto:feedback@hotel.com?subject=Отзыв%20об%20отеле";
+        window.location.href = "mailto:tkebuchava16061991@gmail.com?subject=Отзыв%20об%20отеле";
       }
-    }, 1500);
+    }, 1000);
   });
 });
